@@ -9,6 +9,7 @@ st.set_page_config(
 )
 
 model = joblib.load("credit_card_fraud.pkl")
+scaler = joblib.load("scaler.pkl")
 
 st.title("💳 Credit Card Fraud Detection")
 st.write("Predict whether a credit card transaction is Fraud or Legitimate.")
@@ -46,6 +47,7 @@ if option == "Manual Input":
                 value=default,
                 format="%.6f"
             )
+    df["Amount"] = scaler.transform(df[["Amount"]])
 
     if st.button("Predict"):
 
